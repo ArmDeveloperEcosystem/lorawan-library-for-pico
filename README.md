@@ -51,7 +51,7 @@ export PICO_SDK_PATH=/path/to/pico-sdk
 ```
 mkdir build
 cd build
-cmake ..
+cmake .. -DPICO_BOARD=pico
 make
 ```
 4. Copy example `.uf2` to Pico when in BOOT mode.
