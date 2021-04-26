@@ -34,7 +34,7 @@ See [examples](examples/) folder.
 
 There is a `config.h` file to your ABP or OTAA node configuration for each example.
 
-# Cloning
+## Cloning
 
 ```sh
 git clone --recurse-submodules https://github.com/sandeepmistry/pico-lorawan.git 
