@@ -20,7 +20,7 @@ Based on the Semtech's [LoRaWAN end-device stack implementation and example proj
 | GND | GND |
 | GPIO 18 | SCK |
 | GPIO 19 | MOSI |
-| GPIO 20 | MISO |
+| GPIO 16 | MISO |
 | GPIO 7 | DIO0 / G0 |
 | GPIO 8 | NSS / CS |
 | GPIO 9 | RESET |
