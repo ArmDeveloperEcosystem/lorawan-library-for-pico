@@ -72,14 +72,18 @@ static int64_t alarm_callback(alarm_id_t id, void *user_data) {
 
 void RtcSetAlarm( uint32_t timeout )
 {
-    alarm_pool_cancel_alarm(rtc_alarm_pool, last_rtc_alarm_id);
+    if (last_rtc_alarm_id > -1) {
+        alarm_pool_cancel_alarm(rtc_alarm_pool, last_rtc_alarm_id);
+    }
 
     last_rtc_alarm_id = alarm_pool_add_alarm_at(rtc_alarm_pool, delayed_by_us(rtc_timer_context, timeout), alarm_callback, NULL, true);
 }
 
 void RtcStopAlarm( void )
 {
-    alarm_pool_cancel_alarm(rtc_alarm_pool, last_rtc_alarm_id);
+    if (last_rtc_alarm_id > -1) {
+        alarm_pool_cancel_alarm(rtc_alarm_pool, last_rtc_alarm_id);
+    }
 }
 
 uint32_t RtcMs2Tick( TimerTime_t milliseconds )
