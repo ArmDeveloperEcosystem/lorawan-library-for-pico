@@ -8,6 +8,7 @@
 #include <stdint.h>
 #include <string.h>
 
+#include "pico.h"
 #include "pico/unique_id.h"
 #include "hardware/sync.h"
 
