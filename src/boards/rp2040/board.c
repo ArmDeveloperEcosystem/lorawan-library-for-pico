@@ -8,11 +8,15 @@
 #include <stdint.h>
 #include <string.h>
 
-#include "pico.h"
 #include "pico/unique_id.h"
 #include "hardware/sync.h"
 
 #include "board.h"
+
+// Jimmy begin
+#include "radio.h"
+#include "secure-element.h"
+// Jimmy end
 
 void BoardInitMcu( void )
 {
@@ -63,3 +67,15 @@ void BoardCriticalSectionEnd( uint32_t *mask )
 void BoardResetMcu( void )
 {
 }
+
+// Jimmy begin
+SecureElementStatus_t SecureElementRandomNumber( uint32_t* randomNum )
+{
+    if( randomNum == NULL )
+    {
+        return SECURE_ELEMENT_ERROR_NPE;
+    }
+    *randomNum = Radio.Random( );
+    return SECURE_ELEMENT_SUCCESS;
+}
+// Jimmy end
