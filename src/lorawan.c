@@ -179,6 +179,9 @@ static LmHandlerAppData_t AppRxData =
 
 static bool Debug = false;
 
+extern void EepromMcuInit();
+extern uint8_t EepromMcuFlush();
+
 const char* lorawan_default_dev_eui(char* dev_eui)
 {
     uint8_t boardId[8];
@@ -196,6 +199,8 @@ const char* lorawan_default_dev_eui(char* dev_eui)
 
 static int lorawan_init(const struct lorawan_sx1276_settings* sx1276_settings, LoRaMacRegion_t region)
 {
+    EepromMcuInit();
+
     RtcInit();
     SpiInit(
         &SX1276.Spi,
@@ -354,6 +359,8 @@ static void OnNvmDataChange( LmHandlerNvmContextStates_t state, uint16_t size )
     if (Debug) {
         DisplayNvmDataChange( state, size );
     }
+
+    EepromMcuFlush();
 }
 
 static void OnNetworkParametersChange( CommissioningParams_t* params )
