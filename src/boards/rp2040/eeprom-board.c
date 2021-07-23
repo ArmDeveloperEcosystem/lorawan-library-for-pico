@@ -5,15 +5,47 @@
  * 
  */
 
+#include <string.h>
+
+#include "pico/stdlib.h"
+#include "hardware/flash.h"
+
 #include "utilities.h"
 #include "eeprom-board.h"
 
+#define EEPROM_SIZE    (FLASH_SECTOR_SIZE)
+#define EEPROM_OFFSET  (PICO_FLASH_SIZE_BYTES - EEPROM_SIZE)
+#define EEPROM_ADDRESS ((const uint8_t*)(XIP_BASE + EEPROM_OFFSET))
+
+static uint8_t eeprom_write_cache[EEPROM_SIZE];
+
+void EepromMcuInit()
+{
+    memcpy(eeprom_write_cache, EEPROM_ADDRESS, sizeof(eeprom_write_cache));
+}
+
 uint8_t EepromMcuReadBuffer( uint16_t addr, uint8_t *buffer, uint16_t size )
 {
-    return FAIL;
+    memcpy(buffer, EEPROM_ADDRESS + addr, size);
+    
+    return LMN_STATUS_OK;
 }
 
 uint8_t EepromMcuWriteBuffer( uint16_t addr, uint8_t *buffer, uint16_t size )
 {
-    return FAIL;
+    memcpy(eeprom_write_cache + addr, buffer, size);
+
+    return LMN_STATUS_OK;
+}
+
+uint8_t EepromMcuFlush()
+{
+    uint32_t mask;
+
+    BoardCriticalSectionBegin(&mask);
+
+    flash_range_erase(EEPROM_OFFSET, sizeof(eeprom_write_cache));
+    flash_range_program(EEPROM_OFFSET, eeprom_write_cache, sizeof(eeprom_write_cache));
+
+    BoardCriticalSectionEnd(&mask);
 }
