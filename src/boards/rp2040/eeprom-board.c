@@ -28,14 +28,14 @@ uint8_t EepromMcuReadBuffer( uint16_t addr, uint8_t *buffer, uint16_t size )
 {
     memcpy(buffer, EEPROM_ADDRESS + addr, size);
     
-    return LMN_STATUS_OK;
+    return SUCCESS;
 }
 
 uint8_t EepromMcuWriteBuffer( uint16_t addr, uint8_t *buffer, uint16_t size )
 {
     memcpy(eeprom_write_cache + addr, buffer, size);
 
-    return LMN_STATUS_OK;
+    return SUCCESS;
 }
 
 uint8_t EepromMcuFlush()
