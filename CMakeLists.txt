@@ -8,7 +8,7 @@ cmake_minimum_required(VERSION 3.12)
 # note: this must happen before project()
 include(pico_sdk_import.cmake)
 
-project(pico_lorwan)
+project(pico_lorawan)
 
 # initialize the Pico SDK
 pico_sdk_init()
