@@ -405,7 +405,7 @@ static void OnNetworkParametersChange( CommissioningParams_t* params )
             params->DevAddr = 0;
 
             for (int i = 0; i < 4; i++) {
-                uint8_t b;
+                int b;
 
                 sscanf(device_address + i * 2, "%2hhx", &b);
 
@@ -427,7 +427,11 @@ static void OnNetworkParametersChange( CommissioningParams_t* params )
         uint8_t deviceEui[8];
 
         for (int i = 0; i < 8; i++) {
-            sscanf(device_eui + i * 2, "%2hhx", &deviceEui[i]);
+            int b;
+
+            sscanf(device_eui + i * 2, "%2x", &b);
+
+            deviceEui[i] = b;
         }
 
         mibReq.Type = MIB_DEV_EUI;
@@ -440,7 +444,11 @@ static void OnNetworkParametersChange( CommissioningParams_t* params )
         uint8_t joinEui[8];
 
         for (int i = 0; i < 8; i++) {
-            sscanf(app_eui + i * 2, "%2hhx", &joinEui[i]);
+            int b;
+
+            sscanf(app_eui + i * 2, "%2x", &b);
+
+            joinEui[i] = b;
         }
 
         mibReq.Type = MIB_JOIN_EUI;
@@ -453,7 +461,11 @@ static void OnNetworkParametersChange( CommissioningParams_t* params )
         uint8_t appKey[16];
 
         for (int i = 0; i < 16; i++) {
-            sscanf(app_key + i * 2, "%2hhx", &appKey[i]);
+            int b;
+
+            sscanf(app_key + i * 2, "%2x", &b);
+
+            appKey[i] = b;
         }
 
         mibReq.Type = MIB_APP_KEY;
@@ -469,7 +481,11 @@ static void OnNetworkParametersChange( CommissioningParams_t* params )
         uint8_t appSessionKey[16];
 
         for (int i = 0; i < 16; i++) {
-            sscanf(app_session_key + i * 2, "%2hhx", &appSessionKey[i]);
+            int b;
+
+            sscanf(app_session_key + i * 2, "%2x", &b);
+
+            appSessionKey[i] = b;
         }
 
         mibReq.Type = MIB_APP_S_KEY;
@@ -481,7 +497,11 @@ static void OnNetworkParametersChange( CommissioningParams_t* params )
         uint8_t networkSessionKey[16];
 
         for (int i = 0; i < 16; i++) {
-            sscanf(network_session_key + i * 2, "%2hhx", &networkSessionKey[i]);
+            int b;
+
+            sscanf(network_session_key + i * 2, "%2x", &b);
+
+            networkSessionKey[i] = b;
         }
 
         mibReq.Type = MIB_F_NWK_S_INT_KEY;
@@ -501,10 +521,10 @@ static void OnNetworkParametersChange( CommissioningParams_t* params )
         uint16_t channelMask[6];
 
         for (int i = 0; i < 6; i++) {
-            uint8_t b[2];
+            int b[2];
 
-            sscanf(channel_mask + i * 4 + 0, "%2hhx", &b[0]);
-            sscanf(channel_mask + i * 4 + 2, "%2hhx", &b[1]);
+            sscanf(channel_mask + i * 4 + 0, "%2x", &b[0]);
+            sscanf(channel_mask + i * 4 + 2, "%2x", &b[1]);
 
             channelMask[i] = (b[0] << 8) | b[1];
         }
