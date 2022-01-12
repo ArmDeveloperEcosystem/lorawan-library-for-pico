@@ -17,21 +17,25 @@ set(LORAMAC_NODE_PATH ${CMAKE_CURRENT_LIST_DIR}/lib/LoRaMac-node)
 
 # Choose whether to enable Waveshare SX1262 module support instead of SX1276 support.
 # This will control cmake's build behavior.
-option(WITH_WAVESHARE_SX126X "Enable Waveshare SX1262 Raspberry Pi LoRa module support instead of SX1276" ON)
+option(WITH_WAVESHARE_SX126X "Enable Waveshare SX1262 Raspberry Pi LoRa module support instead of SX1276" OFF)
 
+# Enable for use with SX126X, e.g. Waveshare Raspberry Pi Pico LoRa module SX1262 by uncommenting:
+#set(WITH_WAVESHARE_SX126X ON)
 
 ## Depending on previous selection, add the following items
 if(WITH_WAVESHARE_SX126X)
-    set(SX_RADIO_FILES 
+    message("Building for SX126X")
+    set(SX12XX_RADIO_FILES 
         ${LORAMAC_NODE_PATH}/src/radio/sx126x/sx126x.c 
         ${LORAMAC_NODE_PATH}/src/radio/sx126x/radio.c
     )
-    set(SX_BOARD_FILES ${CMAKE_CURRENT_LIST_DIR}/src/boards/rp2040/sx126x-board.c)
+    set(SX12XX_BOARD_FILES ${CMAKE_CURRENT_LIST_DIR}/src/boards/rp2040/sx126x-board.c)
 else()
-    set(SX_RADIO_FILES 
+    message("Building for SX1276")
+    set(SX12XX_RADIO_FILES 
         ${LORAMAC_NODE_PATH}/src/radio/sx1276/sx1276.c 
     )
-    set(SX_BOARD_FILES ${CMAKE_CURRENT_LIST_DIR}/src/boards/rp2040/sx1276-board.c) 
+    set(SX12XX_BOARD_FILES ${CMAKE_CURRENT_LIST_DIR}/src/boards/rp2040/sx1276-board.c) 
 endif()
 
 
@@ -85,7 +89,7 @@ target_sources(pico_loramac_node INTERFACE
     ${LORAMAC_NODE_PATH}/src/peripherals/soft-se/soft-se-hal.c
     ${LORAMAC_NODE_PATH}/src/peripherals/soft-se/soft-se.c
 
-    ${SX_RADIO_FILES}
+    ${SX12XX_RADIO_FILES}
 
     ${LORAMAC_NODE_PATH}/src/system/delay.c
     ${LORAMAC_NODE_PATH}/src/system/gpio.c
@@ -100,7 +104,7 @@ target_sources(pico_loramac_node INTERFACE
     ${CMAKE_CURRENT_LIST_DIR}/src/boards/rp2040/rtc-board.c
     ${CMAKE_CURRENT_LIST_DIR}/src/boards/rp2040/spi-board.c
     
-    ${SX_BOARD_FILES}
+    ${SX12XX_BOARD_FILES}
 )
 
 target_include_directories(pico_loramac_node INTERFACE
