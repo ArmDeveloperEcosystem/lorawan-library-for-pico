@@ -22,6 +22,7 @@ struct lorawan_sx12xx_settings {
         uint nss;
     } spi;
     uint reset;
+    uint busy;
     uint dio0;
     uint dio1;
 };
