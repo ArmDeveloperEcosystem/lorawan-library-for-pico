@@ -19,19 +19,37 @@
 // edit with LoRaWAN Node Region and ABP settings 
 #include "config.h"
 
-// pin configuration for SX1276 radio module
+/*
+ * Pin configuration for SX1276 radio module (default)
+ */
 const struct lorawan_sx12xx_settings sx12xx_settings = {
     .spi = {
         .inst = PICO_DEFAULT_SPI_INSTANCE,
         .mosi = PICO_DEFAULT_SPI_TX_PIN,
         .miso = PICO_DEFAULT_SPI_RX_PIN,
         .sck  = PICO_DEFAULT_SPI_SCK_PIN,
-        .nss = 8
+        .nss  = 8
     },
     .reset = 9,
-    .dio0 = 7,
-    .dio1 = 10
+    .dio0  = 7,
+    .dio1  = 10
 };
+
+/*
+ * Configuration for SX1262 Waveshare module
+ */
+//const struct lorawan_sx12xx_settings sx12xx_settings = {
+//    .spi = {
+//        .inst = spi1,
+//        .mosi = 11,
+//        .miso = 12,
+//        .sck  = 10,
+//        .nss  = 3
+//    },
+//    .reset = 15,
+//    .busy = 2,
+//    .dio1  = 20
+//};
 
 // ABP settings
 const struct lorawan_abp_settings abp_settings = {

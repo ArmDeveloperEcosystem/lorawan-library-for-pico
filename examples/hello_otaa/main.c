@@ -18,7 +18,9 @@
 // edit with LoRaWAN Node Region and OTAA settings 
 #include "config.h"
 
-// pin configuration for SX1276 radio module
+/*
+ * Pin configuration for SX1276 radio module (default)
+ */
 const struct lorawan_sx12xx_settings sx12xx_settings = {
     .spi = {
         .inst = PICO_DEFAULT_SPI_INSTANCE,
@@ -31,6 +33,22 @@ const struct lorawan_sx12xx_settings sx12xx_settings = {
     .dio0  = 7,
     .dio1  = 10
 };
+
+/*
+ * Configuration for SX1262 Waveshare module
+ */
+//const struct lorawan_sx12xx_settings sx12xx_settings = {
+//    .spi = {
+//        .inst = spi1,
+//        .mosi = 11,
+//        .miso = 12,
+//        .sck  = 10,
+//        .nss  = 3
+//    },
+//    .reset = 15,
+//    .busy = 2,
+//    .dio1  = 20
+//};
 
 // OTAA settings
 const struct lorawan_otaa_settings otaa_settings = {
