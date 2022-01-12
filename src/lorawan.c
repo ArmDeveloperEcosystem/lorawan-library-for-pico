@@ -442,9 +442,7 @@ static void OnNetworkParametersChange( CommissioningParams_t* params )
 
             for (int i = 0; i < 4; i++) {
                 int b;
-
                 sscanf(device_address + i * 2, "%2hhx", &b);
-
                 params->DevAddr = (params->DevAddr << 8) | b;
             }
         } else {
@@ -464,9 +462,7 @@ static void OnNetworkParametersChange( CommissioningParams_t* params )
 
         for (int i = 0; i < 8; i++) {
             int b;
-
             sscanf(device_eui + i * 2, "%2x", &b);
-
             deviceEui[i] = b;
         }
 
@@ -481,9 +477,7 @@ static void OnNetworkParametersChange( CommissioningParams_t* params )
 
         for (int i = 0; i < 8; i++) {
             int b;
-
             sscanf(app_eui + i * 2, "%2x", &b);
-
             joinEui[i] = b;
         }
 
@@ -498,9 +492,7 @@ static void OnNetworkParametersChange( CommissioningParams_t* params )
 
         for (int i = 0; i < 16; i++) {
             int b;
-
             sscanf(app_key + i * 2, "%2x", &b);
-
             appKey[i] = b;
         }
 
@@ -518,9 +510,7 @@ static void OnNetworkParametersChange( CommissioningParams_t* params )
 
         for (int i = 0; i < 16; i++) {
             int b;
-
             sscanf(app_session_key + i * 2, "%2x", &b);
-
             appSessionKey[i] = b;
         }
 
@@ -534,9 +524,7 @@ static void OnNetworkParametersChange( CommissioningParams_t* params )
 
         for (int i = 0; i < 16; i++) {
             int b;
-
             sscanf(network_session_key + i * 2, "%2x", &b);
-
             networkSessionKey[i] = b;
         }
 
@@ -558,10 +546,8 @@ static void OnNetworkParametersChange( CommissioningParams_t* params )
 
         for (int i = 0; i < 6; i++) {
             int b[2];
-
             sscanf(channel_mask + i * 4 + 0, "%2x", &b[0]);
             sscanf(channel_mask + i * 4 + 2, "%2x", &b[1]);
-
             channelMask[i] = (b[0] << 8) | b[1];
         }
 
