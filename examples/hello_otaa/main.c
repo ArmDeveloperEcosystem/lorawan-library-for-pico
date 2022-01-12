@@ -19,7 +19,7 @@
 #include "config.h"
 
 // pin configuration for SX1276 radio module
-const struct lorawan_sx1276_settings sx1276_settings = {
+const struct lorawan_sx12xx_settings sx12xx_settings = {
     .spi = {
         .inst = PICO_DEFAULT_SPI_INSTANCE,
         .mosi = PICO_DEFAULT_SPI_TX_PIN,
@@ -61,7 +61,7 @@ int main( void )
 
     // initialize the LoRaWAN stack
     printf("Initilizating LoRaWAN ... ");
-    if (lorawan_init_otaa(&sx1276_settings, LORAWAN_REGION, &otaa_settings) < 0) {
+    if (lorawan_init_otaa(&sx12xx_settings, LORAWAN_REGION, &otaa_settings) < 0) {
         printf("failed!!!\n");
         while (1) {
             tight_loop_contents();

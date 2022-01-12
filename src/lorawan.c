@@ -197,24 +197,24 @@ const char* lorawan_default_dev_eui(char* dev_eui)
     return dev_eui;
 }
 
-static int lorawan_init(const struct lorawan_sx1276_settings* sx1276_settings, LoRaMacRegion_t region)
+static int lorawan_init(const struct lorawan_sx12xx_settings* sx12xx_settings, LoRaMacRegion_t region)
 {
     EepromMcuInit();
 
     RtcInit();
     SpiInit(
         &SX1276.Spi,
-        (SpiId_t)((sx1276_settings->spi.inst == spi0) ? 0 : 1),
-        sx1276_settings->spi.mosi /*MOSI*/,
-        sx1276_settings->spi.miso /*MISO*/,
-        sx1276_settings->spi.sck /*SCK*/, 
+        (SpiId_t)((sx12xx_settings->spi.inst == spi0) ? 0 : 1),
+        sx12xx_settings->spi.mosi /*MOSI*/,
+        sx12xx_settings->spi.miso /*MISO*/,
+        sx12xx_settings->spi.sck /*SCK*/, 
         NC
     );
 
-    SX1276.Spi.Nss.pin = sx1276_settings->spi.nss;
-    SX1276.Reset.pin = sx1276_settings->reset;
-    SX1276.DIO0.pin = sx1276_settings->dio0;
-    SX1276.DIO1.pin = sx1276_settings->dio1;
+    SX1276.Spi.Nss.pin = sx12xx_settings->spi.nss;
+    SX1276.Reset.pin = sx12xx_settings->reset;
+    SX1276.DIO0.pin = sx12xx_settings->dio0;
+    SX1276.DIO1.pin = sx12xx_settings->dio1;
 
     SX1276IoInit();
 
@@ -240,20 +240,20 @@ static int lorawan_init(const struct lorawan_sx1276_settings* sx1276_settings, L
     return 0;
 }
 
-int lorawan_init_abp(const struct lorawan_sx1276_settings* sx1276_settings, LoRaMacRegion_t region, const struct lorawan_abp_settings* abp_settings)
+int lorawan_init_abp(const struct lorawan_sx12xx_settings* sx12xx_settings, LoRaMacRegion_t region, const struct lorawan_abp_settings* abp_settings)
 {
     AbpSettings = abp_settings;
     OtaaSettings = NULL;
 
-    return lorawan_init(sx1276_settings, region);
+    return lorawan_init(sx12xx_settings, region);
 }
 
-int lorawan_init_otaa(const struct lorawan_sx1276_settings* sx1276_settings, LoRaMacRegion_t region, const struct lorawan_otaa_settings* otaa_settings)
+int lorawan_init_otaa(const struct lorawan_sx12xx_settings* sx12xx_settings, LoRaMacRegion_t region, const struct lorawan_otaa_settings* otaa_settings)
 {
     AbpSettings = NULL;
     OtaaSettings = otaa_settings;
 
-    return lorawan_init(sx1276_settings, region);
+    return lorawan_init(sx12xx_settings, region);
 }
 
 int lorawan_join()
