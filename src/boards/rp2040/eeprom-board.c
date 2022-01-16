@@ -26,7 +26,7 @@ void EepromMcuInit()
 
 uint8_t EepromMcuReadBuffer( uint16_t addr, uint8_t *buffer, uint16_t size )
 {
-    memcpy(buffer, EEPROM_ADDRESS + addr, size);
+    memcpy(buffer, eeprom_write_cache + addr, size);
     
     return SUCCESS;
 }
