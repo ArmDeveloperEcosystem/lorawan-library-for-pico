@@ -12,7 +12,7 @@
 
 ```c
 // pin configuration for SX1276 radio module
-struct lorawan_sx1276_settings sx1276_settings = {
+struct lorawan_sx12xx_settings sx12xx_settings = {
     .spi = {
         .inst = PICO_DEFAULT_SPI_INSTANCE, // RP2040 SPI instance
         .mosi = PICO_DEFAULT_SPI_TX_PIN,   // SPI MOSI GPIO
@@ -47,10 +47,10 @@ const struct lorawan_abp_settings abp_settings = {
     .channel_mask = NULL,
 };
 
-int lorawan_init_abp(const struct lorawan_sx1276_settings* sx1276_settings, LoRaMacRegion_t region, const struct lorawan_abp_settings* abp_settings);
+int lorawan_init_abp(const struct lorawan_sx12xx_settings* sx12xx_settings, LoRaMacRegion_t region, const struct lorawan_abp_settings* abp_settings);
 ```
 
-- `sx1276_settings` - pointer to settings for SX1276 SPI and GPIO pins
+- `sx12xx_settings` - pointer to settings for SX1276 SPI and GPIO pins
 - `region` - region to use, see [`enum LoRaMacRegion_t
 `](http://stackforce.github.io/LoRaMac-doc/LoRaMac-doc-v4.5.1/group___l_o_r_a_m_a_c.html#ga3b9d54f0355b51e85df8b33fd1757eec)for supported values]
 - `abp_settings` - pointer to LoRaWAN ABP settings
@@ -77,10 +77,10 @@ const struct lorawan_otaa_settings otaa_settings = {
     .channel_mask = NULL,
 };
 
-int lorawan_init_otaa(const struct lorawan_sx1276_settings* sx1276_settings, LoRaMacRegion_t region, const struct lorawan_otaa_settings* otaa_settings);
+int lorawan_init_otaa(const struct lorawan_sx12xx_settings* sx12xx_settings, LoRaMacRegion_t region, const struct lorawan_otaa_settings* otaa_settings);
 ```
 
-- `sx1276_settings` - pointer to settings for SX1276 SPI and GPIO pins
+- `sx12xx_settings` - pointer to settings for SX1276 SPI and GPIO pins
 - `region` - region to use, see [`enum LoRaMacRegion_t
 `](http://stackforce.github.io/LoRaMac-doc/LoRaMac-doc-v4.5.1/group___l_o_r_a_m_a_c.html#ga3b9d54f0355b51e85df8b33fd1757eec)for supported values]
 - `otaa_settings` - pointer to LoRaWAN OTAA settings
