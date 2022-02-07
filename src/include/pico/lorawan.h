@@ -8,6 +8,10 @@
 #ifndef _PICO_LORAWAN_H_
 #define _PICO_LORAWAN_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "hardware/gpio.h"
 #include "hardware/spi.h"
 
@@ -59,5 +63,9 @@ int lorawan_send_unconfirmed(const void* data, uint8_t data_len, uint8_t app_por
 int lorawan_receive(void* data, uint8_t data_len, uint8_t* app_port);
 
 void lorawan_debug(bool debug);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
