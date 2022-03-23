@@ -46,6 +46,8 @@ struct lorawan_otaa_settings {
 
 const char* lorawan_default_dev_eui(char* dev_eui);
 
+int lorawan_init(const struct lorawan_sx1276_settings* sx1276_settings, LoRaMacRegion_t region);
+
 int lorawan_init_abp(const struct lorawan_sx1276_settings* sx1276_settings, LoRaMacRegion_t region, const struct lorawan_abp_settings* abp_settings);
 
 int lorawan_init_otaa(const struct lorawan_sx1276_settings* sx1276_settings, LoRaMacRegion_t region, const struct lorawan_otaa_settings* otaa_settings);
@@ -63,6 +65,8 @@ int lorawan_send_unconfirmed(const void* data, uint8_t data_len, uint8_t app_por
 int lorawan_receive(void* data, uint8_t data_len, uint8_t* app_port);
 
 void lorawan_debug(bool debug);
+  
+int lorawan_erase_nvm();
 
 #ifdef __cplusplus
 }

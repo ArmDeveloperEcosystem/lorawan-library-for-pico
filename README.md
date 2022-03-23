@@ -56,6 +56,15 @@ make
 ```
 4. Copy example `.uf2` to Pico when in BOOT mode.
 
+## Erasing Non-volatile Memory (NVM)
+
+This library uses the last page of flash as non-volatile memory (NVM) storage.
+
+You can erase it using the [`erase_nvm` example](examples/nvm), when:
+
+ * Changing the devices configuration
+ * If your board is timing out with joining the network
+
 ## Acknowledgements
 
 A big thanks to [Alasdair Allan](https://github.com/aallan) for his initial testing of EU868 support!
