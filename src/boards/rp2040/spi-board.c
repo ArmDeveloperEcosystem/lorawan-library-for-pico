@@ -17,6 +17,8 @@ void SpiInit( Spi_t *obj, SpiId_t spiId, PinNames mosi, PinNames miso, PinNames 
     gpio_set_function(mosi, GPIO_FUNC_SPI);
     gpio_set_function(miso, GPIO_FUNC_SPI);
     gpio_set_function(sclk, GPIO_FUNC_SPI);
+
+    obj->SpiId = spiId;
 }
 
 uint16_t SpiInOut( Spi_t *obj, uint16_t outData )
