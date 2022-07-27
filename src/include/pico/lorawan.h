@@ -68,6 +68,8 @@ void lorawan_debug(bool debug);
 
 int lorawan_erase_nvm();
 
+int lorawan_nvm_in_use();
+
 #ifdef __cplusplus
 }
 #endif
