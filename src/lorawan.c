@@ -28,6 +28,7 @@
 #include <string.h>
 
 #include "pico/lorawan.h"
+#include "pico/time.h"
 
 #include "board.h"
 #include "rtc-board.h"
