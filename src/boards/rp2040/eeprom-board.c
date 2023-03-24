@@ -24,18 +24,18 @@ void EepromMcuInit()
     memcpy(eeprom_write_cache, EEPROM_ADDRESS, sizeof(eeprom_write_cache));
 }
 
-uint8_t EepromMcuReadBuffer( uint16_t addr, uint8_t *buffer, uint16_t size )
+LmnStatus_t EepromMcuReadBuffer( uint16_t addr, uint8_t *buffer, uint16_t size )
 {
     memcpy(buffer, eeprom_write_cache + addr, size);
     
-    return SUCCESS;
+    return LMN_STATUS_OK;
 }
 
-uint8_t EepromMcuWriteBuffer( uint16_t addr, uint8_t *buffer, uint16_t size )
+LmnStatus_t EepromMcuWriteBuffer( uint16_t addr, uint8_t *buffer, uint16_t size )
 {
     memcpy(eeprom_write_cache + addr, buffer, size);
 
-    return SUCCESS;
+    return LMN_STATUS_OK;
 }
 
 uint8_t EepromMcuFlush()
