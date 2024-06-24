@@ -44,6 +44,8 @@ struct lorawan_otaa_settings {
     const char* channel_mask;
 };
 
+int lorawan_change_device_class(DeviceClass_t newClass);
+
 const char* lorawan_default_dev_eui(char* dev_eui);
 
 int lorawan_init(const struct lorawan_sx1276_settings* sx1276_settings, LoRaMacRegion_t region);
