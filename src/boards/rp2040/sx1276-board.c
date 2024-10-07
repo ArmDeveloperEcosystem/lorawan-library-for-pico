@@ -137,14 +137,13 @@ void SX1276IoIrqInit( DioIrqHandler **irqHandlers )
 {
     irq_handlers = irqHandlers;
 
-    gpio_set_irq_enabled(SX1276.DIO0.pin, GPIO_IRQ_EDGE_RISE, true);  
     gpio_add_raw_irq_handler(SX1276.DIO0.pin,&dio_gpio_callback);
+    gpio_set_irq_enabled(SX1276.DIO0.pin, GPIO_IRQ_EDGE_RISE, true);  
 
     irq_set_enabled(IO_IRQ_BANK0,true);
 
-
-    gpio_set_irq_enabled(SX1276.DIO1.pin, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, true);  
     gpio_add_raw_irq_handler(SX1276.DIO1.pin,&dio_gpio_callback);
+    gpio_set_irq_enabled(SX1276.DIO1.pin, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, true);  
 
     irq_set_enabled(IO_IRQ_BANK0,true);
 
