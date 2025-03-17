@@ -183,6 +183,7 @@ static bool Debug = false;
 
 extern void EepromMcuInit();
 extern uint8_t EepromMcuFlush();
+extern uint8_t EepromInUse();
 
 const char* lorawan_default_dev_eui(char* dev_eui)
 {
@@ -360,6 +361,15 @@ int lorawan_erase_nvm()
     EepromMcuFlush();
 
     return 0;
+}
+
+int lorawan_nvm_in_use()
+{
+    if (EepromInUse()) {
+        return(1);
+    } else {
+        return(0);
+    }
 }
 
 static void OnMacProcessNotify( void )
