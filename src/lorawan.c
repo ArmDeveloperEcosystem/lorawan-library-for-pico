@@ -184,6 +184,15 @@ static bool Debug = false;
 extern void EepromMcuInit();
 extern uint8_t EepromMcuFlush();
 
+
+static DeviceClass_t deviceClass = LORAWAN_DEFAULT_CLASS;
+
+int lorawan_change_device_class(DeviceClass_t newClass)
+{
+    deviceClass = newClass;
+    return LmHandlerRequestClass( deviceClass );
+}
+
 const char* lorawan_default_dev_eui(char* dev_eui)
 {
     uint8_t boardId[8];
@@ -582,7 +591,7 @@ static void OnJoinRequest( LmHandlerJoinParams_t* params )
     }
     else
     {
-        LmHandlerRequestClass( LORAWAN_DEFAULT_CLASS );
+        LmHandlerRequestClass( deviceClass );
     }
 }
 

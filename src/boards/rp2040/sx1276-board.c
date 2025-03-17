@@ -67,11 +67,26 @@ const struct Radio_s Radio =
 
 static DioIrqHandler** irq_handlers;
 
-void dio_gpio_callback(uint gpio, uint32_t events)
+// void dio_gpio_callback(uint gpio, uint32_t events)
+// {
+//     if (gpio == SX1276.DIO0.pin) {
+//         irq_handlers[0](NULL);
+//     } else if (gpio == SX1276.DIO1.pin) {
+//         irq_handlers[1](NULL);
+//     }
+// }
+
+
+void dio_gpio_callback()
 {
-    if (gpio == SX1276.DIO0.pin) {
+    if(gpio_get_irq_event_mask(SX1276.DIO0.pin) & GPIO_IRQ_EDGE_RISE)
+    {
+        gpio_acknowledge_irq(SX1276.DIO0.pin, GPIO_IRQ_EDGE_RISE);
         irq_handlers[0](NULL);
-    } else if (gpio == SX1276.DIO1.pin) {
+    }
+    if(gpio_get_irq_event_mask(SX1276.DIO1.pin) & GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL)
+    {
+        gpio_acknowledge_irq(SX1276.DIO1.pin, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL);
         irq_handlers[1](NULL);
     }
 }
@@ -122,8 +137,18 @@ void SX1276IoIrqInit( DioIrqHandler **irqHandlers )
 {
     irq_handlers = irqHandlers;
 
-    gpio_set_irq_enabled_with_callback(SX1276.DIO0.pin, GPIO_IRQ_EDGE_RISE, true, &dio_gpio_callback);
-    gpio_set_irq_enabled_with_callback(SX1276.DIO1.pin, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, true, &dio_gpio_callback);
+    gpio_add_raw_irq_handler(SX1276.DIO0.pin,&dio_gpio_callback);
+    gpio_set_irq_enabled(SX1276.DIO0.pin, GPIO_IRQ_EDGE_RISE, true);  
+
+    irq_set_enabled(IO_IRQ_BANK0,true);
+
+    gpio_add_raw_irq_handler(SX1276.DIO1.pin,&dio_gpio_callback);
+    gpio_set_irq_enabled(SX1276.DIO1.pin, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, true);  
+
+    irq_set_enabled(IO_IRQ_BANK0,true);
+
+    // gpio_set_irq_enabled_with_callback(SX1276.DIO0.pin, GPIO_IRQ_EDGE_RISE, true, &dio_gpio_callback);
+    // gpio_set_irq_enabled_with_callback(SX1276.DIO1.pin, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, true, &dio_gpio_callback);
 }
 
 /*!
